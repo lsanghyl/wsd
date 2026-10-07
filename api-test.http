@@ -1,0 +1,113 @@
+### ========================================
+### Spring Boot Todo API Test
+### ========================================
+
+
+### 1. POST - Todo 생성
+POST http://localhost:8080/api/todos
+Content-Type: application/json
+
+{
+  "title": "Spring Boot 과제하기",
+  "completed": false,
+  "priority": 1
+}
+
+
+### 2. POST - Todo 완료 처리
+POST http://localhost:8080/api/todos/1/complete
+
+
+### 3. GET - 전체 Todo 조회
+GET http://localhost:8080/api/todos
+
+
+### 4. GET - 특정 Todo 조회
+GET http://localhost:8080/api/todos/1
+
+
+### 5. PUT - Todo 내용 수정
+PUT http://localhost:8080/api/todos/1
+Content-Type: application/json
+
+{
+  "title": "Spring Boot 과제 완료하기",
+  "completed": false,
+  "priority": 2
+}
+
+
+### 6. PUT - Todo 우선순위 수정
+PUT http://localhost:8080/api/todos/1/priority?priority=5
+
+
+### 7. DELETE - 특정 Todo 삭제
+DELETE http://localhost:8080/api/todos/1
+
+
+### 8. DELETE - 전체 Todo 삭제
+DELETE http://localhost:8080/api/todos
+
+
+### ========================================
+### HTTP Response Code Test
+### ========================================
+
+
+### 400 Bad Request - title 누락
+POST http://localhost:8080/api/todos
+Content-Type: application/json
+
+{
+  "title": "",
+  "completed": false,
+  "priority": 1
+}
+
+
+### 404 Not Found - 존재하지 않는 Todo
+GET http://localhost:8080/api/todos/999
+
+
+### 500 Internal Server Error
+DELETE http://localhost:8080/api/todos?mode=error
+
+
+### 503 Service Unavailable
+DELETE http://localhost:8080/api/todos?mode=maintenance
+
+### ========================================
+### Middleware Logging Test
+### ========================================
+
+### GET 전체 조회
+GET http://localhost:8080/api/todos
+
+### GET 존재하지 않는 Todo
+GET http://localhost:8080/api/todos/999
+
+### POST Todo 생성
+POST http://localhost:8080/api/todos
+Content-Type: application/json
+
+{
+  "title": "Middleware 테스트",
+  "completed": false,
+  "priority": 1
+}
+
+### PUT Todo 수정
+PUT http://localhost:8080/api/todos/1
+Content-Type: application/json
+
+{
+  "title": "Middleware 수정 테스트",
+  "completed": false,
+  "priority": 2
+}
+
+### DELETE Todo 삭제
+DELETE http://localhost:8080/api/todos/1
+
+### 503 테스트
+DELETE http://localhost:8080/api/todos?mode=maintenance
